@@ -916,15 +916,15 @@ void gsc_utils_remotecommand()
 {
 	char * sFrom;
 	int pointerMsg;
-	
+
 	if (!stackGetParams("si", &sFrom, &pointerMsg))
 	{
 		stackError("gsc_utils_remotecommand() one or more arguments is undefined or has a wrong type");
 		return;
 	}
-	
+
 	netadr_t from;
-	
+
 	msg_t * msg = (msg_t *)pointerMsg;
 	NET_StringToAdr(sFrom, &from);
 
@@ -944,6 +944,11 @@ void RemoteCommand(netadr_t from, msg_t *msg)
 	*(int *)lasttime_offset = 0;
 
 	SVC_RemoteCommand(from, msg);
+}
+
+void gsc_utils_getsysmilliseconds()
+{
+	stackPushInt(Sys_MilliSeconds());
 }
 
 #endif

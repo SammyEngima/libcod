@@ -1096,7 +1096,7 @@ void hook_SVC_RemoteCommand(netadr_t from, msg_t *msg)
 		}
 
 		stackPushString(NET_AdrToString(from));
-	
+
 		short ret = Scr_ExecThread(codecallback_remotecommand, 3);
 		Scr_FreeThread(ret);
 	}
@@ -1277,7 +1277,7 @@ bool hook_SV_MapExists(const char *mapname)
 	{
 		return map_exists;
 	}
-	else 
+	else
 	{
 		char map_check[1024];
 		char library_path[512];

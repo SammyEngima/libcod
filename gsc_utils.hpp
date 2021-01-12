@@ -44,5 +44,6 @@ void gsc_utils_remove_file();
 void gsc_utils_putchar();
 void gsc_utils_remotecommand();
 void RemoteCommand(netadr_t from, msg_t *msg);
+void gsc_utils_getsysmilliseconds();
 
 #endif
