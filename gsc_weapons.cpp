@@ -261,7 +261,7 @@ void gsc_weapons_setweapondamage()
 	char *name;
 	int damage;
 
-	if (stackGetParams("s", &name, &damage)) 
+	if (stackGetParams("si", &name, &damage)) 
 	{
 		id = BG_FindWeaponIndexForName(name);
 	}
