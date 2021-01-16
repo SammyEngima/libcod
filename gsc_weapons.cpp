@@ -15,8 +15,13 @@ qboolean isValidWeaponId(int id)
 void gsc_weapons_getweaponmaxammo()
 {
 	int id;
+	char *name;
 
-	if ( ! stackGetParams("i", &id))
+	if (stackGetParams("s", &name)) 
+	{
+		id = BG_FindWeaponIndexForName(name);
+	}
+	else if ( ! stackGetParams("i", &id)) 
 	{
 		stackError("gsc_weapons_getweaponmaxammo() argument is undefined or has a wrong type");
 		stackPushUndefined();
@@ -37,8 +42,13 @@ void gsc_weapons_getweaponmaxammo()
 void gsc_weapons_getweaponclipsize()
 {
 	int id;
+	char *name;
 
-	if ( ! stackGetParams("i", &id))
+	if (stackGetParams("s", &name)) 
+	{
+		id = BG_FindWeaponIndexForName(name);
+	}
+	else if ( ! stackGetParams("i", &id))
 	{
 		stackError("gsc_weapons_getweaponclipsize() argument is undefined or has a wrong type");
 		stackPushUndefined();
@@ -59,8 +69,13 @@ void gsc_weapons_getweaponclipsize()
 void gsc_weapons_getweapondamage()
 {
 	int id;
+	char *name;
 
-	if ( ! stackGetParams("i", &id))
+	if (stackGetParams("s", &name)) 
+	{
+		id = BG_FindWeaponIndexForName(name);
+	}
+	else if ( ! stackGetParams("i", &id))
 	{
 		stackError("gsc_weapons_getweapondamage() argument is undefined or has a wrong type");
 		stackPushUndefined();
@@ -81,8 +96,13 @@ void gsc_weapons_getweapondamage()
 void gsc_weapons_getweaponmeleedamage()
 {
 	int id;
+	char *name;
 
-	if ( ! stackGetParams("i", &id))
+	if (stackGetParams("s", &name)) 
+	{
+		id = BG_FindWeaponIndexForName(name);
+	}
+	else if ( ! stackGetParams("i", &id))
 	{
 		stackError("gsc_weapons_getweaponmeleedamage() argument is undefined or has a wrong type");
 		stackPushUndefined();
@@ -103,8 +123,13 @@ void gsc_weapons_getweaponmeleedamage()
 void gsc_weapons_getweaponfiretime()
 {
 	int id;
+	char *name;
 
-	if ( ! stackGetParams("i", &id))
+	if (stackGetParams("s", &name)) 
+	{
+		id = BG_FindWeaponIndexForName(name);
+	}
+	else if ( ! stackGetParams("i", &id))
 	{
 		stackError("gsc_weapons_getweaponfiretime() argument is undefined or has a wrong type");
 		stackPushUndefined();
@@ -125,8 +150,13 @@ void gsc_weapons_getweaponfiretime()
 void gsc_weapons_getweaponmeleetime()
 {
 	int id;
+	char *name;
 
-	if ( ! stackGetParams("i", &id))
+	if (stackGetParams("s", &name)) 
+	{
+		id = BG_FindWeaponIndexForName(name);
+	}
+	else if ( ! stackGetParams("i", &id))
 	{
 		stackError("gsc_weapons_getweaponmeleetime() argument is undefined or has a wrong type");
 		stackPushUndefined();
@@ -147,8 +177,13 @@ void gsc_weapons_getweaponmeleetime()
 void gsc_weapons_getweaponreloadtime()
 {
 	int id;
+	char *name;
 
-	if ( ! stackGetParams("i", &id))
+	if (stackGetParams("s", &name)) 
+	{
+		id = BG_FindWeaponIndexForName(name);
+	}
+	else if ( ! stackGetParams("i", &id))
 	{
 		stackError("gsc_weapons_getweaponreloadtime() argument is undefined or has a wrong type");
 		stackPushUndefined();
@@ -169,8 +204,13 @@ void gsc_weapons_getweaponreloadtime()
 void gsc_weapons_getweaponreloademptytime()
 {
 	int id;
+	char *name;
 
-	if ( ! stackGetParams("i", &id))
+	if (stackGetParams("s", &name)) 
+	{
+		id = BG_FindWeaponIndexForName(name);
+	}
+	else if ( ! stackGetParams("i", &id))
 	{
 		stackError("gsc_weapons_getweaponreloademptytime() argument is undefined or has a wrong type");
 		stackPushUndefined();
@@ -191,8 +231,13 @@ void gsc_weapons_getweaponreloademptytime()
 void gsc_weapons_getweaponcookable()
 {
 	int id;
+	char *name;
 
-	if ( ! stackGetParams("i", &id))
+	if (stackGetParams("s", &name)) 
+	{
+		id = BG_FindWeaponIndexForName(name);
+	}
+	else if ( ! stackGetParams("i", &id))
 	{
 		stackError("gsc_weapons_getweaponcookable() argument is undefined or has a wrong type");
 		stackPushUndefined();
@@ -213,9 +258,14 @@ void gsc_weapons_getweaponcookable()
 void gsc_weapons_setweapondamage()
 {
 	int id;
+	char *name;
 	int damage;
 
-	if ( ! stackGetParams("ii", &id, &damage))
+	if (stackGetParams("s", &name, &damage)) 
+	{
+		id = BG_FindWeaponIndexForName(name);
+	}
+	else if ( ! stackGetParams("ii", &id, &damage))
 	{
 		stackError("gsc_weapons_setweapondamage() one or more arguments is undefined or has a wrong type");
 		stackPushUndefined();
@@ -238,9 +288,14 @@ void gsc_weapons_setweapondamage()
 void gsc_weapons_setweaponmaxammo()
 {
 	int id;
+	char *name;
 	int ammo;
 
-	if ( ! stackGetParams("ii", &id, &ammo))
+	if (stackGetParams("si", &name, &ammo)) 
+	{
+		id = BG_FindWeaponIndexForName(name);
+	}
+	else if ( ! stackGetParams("ii", &id, &ammo))
 	{
 		stackError("gsc_weapons_setweaponmaxammo() one or more arguments is undefined or has a wrong type");
 		stackPushUndefined();
@@ -263,9 +318,14 @@ void gsc_weapons_setweaponmaxammo()
 void gsc_weapons_setweaponclipsize()
 {
 	int id;
+	char *name;
 	int clipSize;
 
-	if ( ! stackGetParams("ii", &id, &clipSize))
+	if (stackGetParams("si", &name, &clipSize)) 
+	{
+		id = BG_FindWeaponIndexForName(name);
+	}
+	else if ( ! stackGetParams("ii", &id, &clipSize))
 	{
 		stackError("gsc_weapons_setweaponclipsize() one or more arguments is undefined or has a wrong type");
 		stackPushUndefined();
@@ -288,9 +348,14 @@ void gsc_weapons_setweaponclipsize()
 void gsc_weapons_setweaponmeleedamage()
 {
 	int id;
+	char *name;
 	int damage;
 
-	if ( ! stackGetParams("ii", &id, &damage))
+	if (stackGetParams("si", &name, &damage)) 
+	{
+		id = BG_FindWeaponIndexForName(name);
+	}
+	else if ( ! stackGetParams("ii", &id, &damage))
 	{
 		stackError("gsc_weapons_setweaponmeleedamage() one or more arguments is undefined or has a wrong type");
 		stackPushUndefined();
@@ -313,9 +378,14 @@ void gsc_weapons_setweaponmeleedamage()
 void gsc_weapons_setweaponfiretime()
 {
 	int id;
+	char *name;
 	int time;
 
-	if ( ! stackGetParams("ii", &id, &time))
+	if (stackGetParams("si", &name, &time)) 
+	{
+		id = BG_FindWeaponIndexForName(name);
+	}
+	else if ( ! stackGetParams("ii", &id, &time))
 	{
 		stackError("gsc_weapons_setweaponfiretime() one or more arguments is undefined or has a wrong type");
 		stackPushUndefined();
@@ -338,9 +408,14 @@ void gsc_weapons_setweaponfiretime()
 void gsc_weapons_setweaponmeleetime()
 {
 	int id;
+	char *name;
 	int time;
 
-	if ( ! stackGetParams("ii", &id, &time))
+	if (stackGetParams("si", &name, &time)) 
+	{
+		id = BG_FindWeaponIndexForName(name);
+	}
+	else if ( ! stackGetParams("ii", &id, &time))
 	{
 		stackError("gsc_weapons_setweaponmeleetime() one or more arguments is undefined or has a wrong type");
 		stackPushUndefined();
@@ -363,9 +438,14 @@ void gsc_weapons_setweaponmeleetime()
 void gsc_weapons_setweaponreloadtime()
 {
 	int id;
+	char *name;
 	int time;
 
-	if ( ! stackGetParams("ii", &id, &time))
+	if (stackGetParams("si", &name, &time)) 
+	{
+		id = BG_FindWeaponIndexForName(name);
+	}
+	else if ( ! stackGetParams("ii", &id, &time))
 	{
 		stackError("gsc_weapons_setweaponreloadtime() one or more arguments is undefined or has a wrong type");
 		stackPushUndefined();
@@ -388,9 +468,14 @@ void gsc_weapons_setweaponreloadtime()
 void gsc_weapons_setweaponreloademptytime()
 {
 	int id;
+	char *name;
 	int time;
 
-	if ( ! stackGetParams("ii", &id, &time))
+	if (stackGetParams("si", &name, &time)) 
+	{
+		id = BG_FindWeaponIndexForName(name);
+	}
+	else if ( ! stackGetParams("ii", &id, &time))
 	{
 		stackError("gsc_weapons_setweaponreloademptytime() one or more arguments is undefined or has a wrong type");
 		stackPushUndefined();
@@ -413,9 +498,14 @@ void gsc_weapons_setweaponreloademptytime()
 void gsc_weapons_setweaponcookable()
 {
 	int id;
+	char *name;
 	int cookable;
 
-	if ( ! stackGetParams("ii", &id, &cookable))
+	if (stackGetParams("si", &name, &time)) 
+	{
+		id = BG_FindWeaponIndexForName(name);
+	}
+	else if ( ! stackGetParams("ii", &id, &cookable))
 	{
 		stackError("gsc_weapons_setweaponcookable() one or more arguments is undefined or has a wrong type");
 		stackPushUndefined();
@@ -455,9 +545,14 @@ int getHitLocOffset(const char *hitloc)
 void gsc_weapons_getweaponhitlocmultiplier()
 {
 	int id;
+	char *name;
 	char *hitloc;
 
-	if ( ! stackGetParams("is", &id, &hitloc))
+	if (stackGetParams("ss", &name, &hitloc)) 
+	{
+		id = BG_FindWeaponIndexForName(name);
+	}
+	else if ( ! stackGetParams("is", &id, &hitloc))
 	{
 		stackError("gsc_weapons_getweaponhitlocmultiplier() one or more arguments is undefined or has a wrong type");
 		stackPushUndefined();
@@ -480,10 +575,15 @@ void gsc_weapons_getweaponhitlocmultiplier()
 void gsc_weapons_setweaponhitlocmultiplier()
 {
 	int id;
+	char *name;
 	float multiplier;
 	char* hitloc;
 
-	if ( ! stackGetParams("isf", &id, &hitloc, &multiplier))
+	if (stackGetParams("ssf", &name, &hitloc, &multiplier)) 
+	{
+		id = BG_FindWeaponIndexForName(name);
+	}
+	else if ( ! stackGetParams("isf", &id, &hitloc, &multiplier))
 	{
 		stackError("gsc_weapons_setweaponhitlocmultiplier() one or more arguments is undefined or has a wrong type");
 		stackPushUndefined();
