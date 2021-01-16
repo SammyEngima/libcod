@@ -1052,6 +1052,11 @@ bool SVC_RateLimitAddress( netadr_t from, int burst, int period )
 	return SVC_RateLimit( bucket, burst, period );
 }
 
+bool isRconCommandWithForwardedOutput(const char* command)
+{
+	return (strcmp(command, "map") == 0 || strcmp(command, "map_restart") == 0 || strcmp(command, "fast_restart") == 0 || strcmp(command, "devmap") == 0);
+}
+
 void hook_SVC_RemoteCommand(netadr_t from, msg_t *msg)
 {
 	if (!sv_allowRcon->boolean)
@@ -1077,7 +1082,7 @@ void hook_SVC_RemoteCommand(netadr_t from, msg_t *msg)
 		}
 	}
 
-	if (!codecallback_remotecommand || badRconPassword || !Scr_IsSystemActive() || strcmp(Cmd_Argv(2), "map") == 0 || strcmp(Cmd_Argv(2), "devmap") == 0)
+	if (!codecallback_remotecommand || badRconPassword || !Scr_IsSystemActive() || isRconCommandWithForwardedOutput(Cmd_Argv(2)))
 	{
 		RemoteCommand(from, msg);
 	}
