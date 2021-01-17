@@ -17,11 +17,11 @@ void gsc_weapons_getweaponmaxammo()
 	int id;
 	char *name;
 
-	if (stackGetParams("s", &name)) 
+	if (stackGetParams("s", &name))
 	{
 		id = BG_FindWeaponIndexForName(name);
 	}
-	else if ( ! stackGetParams("i", &id)) 
+	else if ( ! stackGetParams("i", &id))
 	{
 		stackError("gsc_weapons_getweaponmaxammo() argument is undefined or has a wrong type");
 		stackPushUndefined();
@@ -44,7 +44,7 @@ void gsc_weapons_getweaponclipsize()
 	int id;
 	char *name;
 
-	if (stackGetParams("s", &name)) 
+	if (stackGetParams("s", &name))
 	{
 		id = BG_FindWeaponIndexForName(name);
 	}
@@ -71,7 +71,7 @@ void gsc_weapons_getweapondamage()
 	int id;
 	char *name;
 
-	if (stackGetParams("s", &name)) 
+	if (stackGetParams("s", &name))
 	{
 		id = BG_FindWeaponIndexForName(name);
 	}
@@ -98,7 +98,7 @@ void gsc_weapons_getweaponmeleedamage()
 	int id;
 	char *name;
 
-	if (stackGetParams("s", &name)) 
+	if (stackGetParams("s", &name))
 	{
 		id = BG_FindWeaponIndexForName(name);
 	}
@@ -125,7 +125,7 @@ void gsc_weapons_getweaponfiretime()
 	int id;
 	char *name;
 
-	if (stackGetParams("s", &name)) 
+	if (stackGetParams("s", &name))
 	{
 		id = BG_FindWeaponIndexForName(name);
 	}
@@ -152,7 +152,7 @@ void gsc_weapons_getweaponmeleetime()
 	int id;
 	char *name;
 
-	if (stackGetParams("s", &name)) 
+	if (stackGetParams("s", &name))
 	{
 		id = BG_FindWeaponIndexForName(name);
 	}
@@ -179,7 +179,7 @@ void gsc_weapons_getweaponreloadtime()
 	int id;
 	char *name;
 
-	if (stackGetParams("s", &name)) 
+	if (stackGetParams("s", &name))
 	{
 		id = BG_FindWeaponIndexForName(name);
 	}
@@ -206,7 +206,7 @@ void gsc_weapons_getweaponreloademptytime()
 	int id;
 	char *name;
 
-	if (stackGetParams("s", &name)) 
+	if (stackGetParams("s", &name))
 	{
 		id = BG_FindWeaponIndexForName(name);
 	}
@@ -233,7 +233,7 @@ void gsc_weapons_getweaponcookable()
 	int id;
 	char *name;
 
-	if (stackGetParams("s", &name)) 
+	if (stackGetParams("s", &name))
 	{
 		id = BG_FindWeaponIndexForName(name);
 	}
@@ -261,7 +261,7 @@ void gsc_weapons_setweapondamage()
 	char *name;
 	int damage;
 
-	if (stackGetParams("si", &name, &damage)) 
+	if (stackGetParams("si", &name, &damage))
 	{
 		id = BG_FindWeaponIndexForName(name);
 	}
@@ -291,7 +291,7 @@ void gsc_weapons_setweaponmaxammo()
 	char *name;
 	int ammo;
 
-	if (stackGetParams("si", &name, &ammo)) 
+	if (stackGetParams("si", &name, &ammo))
 	{
 		id = BG_FindWeaponIndexForName(name);
 	}
@@ -321,7 +321,7 @@ void gsc_weapons_setweaponclipsize()
 	char *name;
 	int clipSize;
 
-	if (stackGetParams("si", &name, &clipSize)) 
+	if (stackGetParams("si", &name, &clipSize))
 	{
 		id = BG_FindWeaponIndexForName(name);
 	}
@@ -351,7 +351,7 @@ void gsc_weapons_setweaponmeleedamage()
 	char *name;
 	int damage;
 
-	if (stackGetParams("si", &name, &damage)) 
+	if (stackGetParams("si", &name, &damage))
 	{
 		id = BG_FindWeaponIndexForName(name);
 	}
@@ -381,7 +381,7 @@ void gsc_weapons_setweaponfiretime()
 	char *name;
 	int time;
 
-	if (stackGetParams("si", &name, &time)) 
+	if (stackGetParams("si", &name, &time))
 	{
 		id = BG_FindWeaponIndexForName(name);
 	}
@@ -411,7 +411,7 @@ void gsc_weapons_setweaponmeleetime()
 	char *name;
 	int time;
 
-	if (stackGetParams("si", &name, &time)) 
+	if (stackGetParams("si", &name, &time))
 	{
 		id = BG_FindWeaponIndexForName(name);
 	}
@@ -441,7 +441,7 @@ void gsc_weapons_setweaponreloadtime()
 	char *name;
 	int time;
 
-	if (stackGetParams("si", &name, &time)) 
+	if (stackGetParams("si", &name, &time))
 	{
 		id = BG_FindWeaponIndexForName(name);
 	}
@@ -471,7 +471,7 @@ void gsc_weapons_setweaponreloademptytime()
 	char *name;
 	int time;
 
-	if (stackGetParams("si", &name, &time)) 
+	if (stackGetParams("si", &name, &time))
 	{
 		id = BG_FindWeaponIndexForName(name);
 	}
@@ -501,7 +501,7 @@ void gsc_weapons_setweaponcookable()
 	char *name;
 	int cookable;
 
-	if (stackGetParams("si", &name, &time)) 
+	if (stackGetParams("si", &name, &time))
 	{
 		id = BG_FindWeaponIndexForName(name);
 	}
@@ -548,7 +548,7 @@ void gsc_weapons_getweaponhitlocmultiplier()
 	char *name;
 	char *hitloc;
 
-	if (stackGetParams("ss", &name, &hitloc)) 
+	if (stackGetParams("ss", &name, &hitloc))
 	{
 		id = BG_FindWeaponIndexForName(name);
 	}
@@ -579,7 +579,7 @@ void gsc_weapons_setweaponhitlocmultiplier()
 	float multiplier;
 	char* hitloc;
 
-	if (stackGetParams("ssf", &name, &hitloc, &multiplier)) 
+	if (stackGetParams("ssf", &name, &hitloc, &multiplier))
 	{
 		id = BG_FindWeaponIndexForName(name);
 	}
