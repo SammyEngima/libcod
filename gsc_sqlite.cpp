@@ -30,7 +30,6 @@ struct async_sqlite_task
 	char query[COD2_MAX_STRINGLENGTH];
 	char row[MAX_SQLITE_FIELDS][MAX_SQLITE_ROWS][MAX_SQLITE_ROW_LENGTH];
 	int result;
-	int timeout;
 	int fields_size;
 	int rows_size;
 	int callback;
@@ -125,68 +124,35 @@ void *async_sqlite_query_handler(void* dummy)
 
 			if (!task->done)
 			{
-				task->timeout = Sys_MilliSeconds();
 				task->result = sqlite3_prepare_v2(task->db, task->query, COD2_MAX_STRINGLENGTH, &task->statement, 0);
 
-				while (task->result != SQLITE_OK)
+				if (task->result != SQLITE_OK)
 				{
-					if (task->result == SQLITE_BUSY)
-					{
-						if ((Sys_MilliSeconds() - task->timeout) > SQLITE_TIMEOUT)
-						{
-							task->error = true;
+					task->error = true;
 
-							strncpy(task->errorMessage, sqlite3_errmsg(task->db), COD2_MAX_STRINGLENGTH - 1);
-							task->errorMessage[COD2_MAX_STRINGLENGTH - 1] = '\0';
-
-							break;
-						}
-					}
-					else
-					{
-						task->error = true;
-
-						strncpy(task->errorMessage, sqlite3_errmsg(task->db), COD2_MAX_STRINGLENGTH - 1);
-						task->errorMessage[COD2_MAX_STRINGLENGTH - 1] = '\0';
-
-						break;
-					}
-
-					task->result = sqlite3_prepare_v2(task->db, task->query, COD2_MAX_STRINGLENGTH, &task->statement, 0);
+					strncpy(task->errorMessage, sqlite3_errmsg(task->db), COD2_MAX_STRINGLENGTH - 1);
+					task->errorMessage[COD2_MAX_STRINGLENGTH - 1] = '\0';
 				}
 
 				if (!task->error)
 				{
-					task->timeout = Sys_MilliSeconds();
 					task->result = sqlite3_step(task->statement);
 					task->fields_size = 0;
 
 					while (task->result != SQLITE_DONE)
 					{
-						if (task->result == SQLITE_BUSY)
-						{
-							if ((Sys_MilliSeconds() - task->timeout) > SQLITE_TIMEOUT)
-							{
-								task->error = true;
-
-								strncpy(task->errorMessage, sqlite3_errmsg(task->db), COD2_MAX_STRINGLENGTH - 1);
-								task->errorMessage[COD2_MAX_STRINGLENGTH - 1] = '\0';
-
-								break;
-							}
-						}
-						else if (task->result == SQLITE_ROW)
+						if (task->result == SQLITE_ROW)
 						{
 							if (task->save && task->callback)
 							{
-								if (task->fields_size > MAX_SQLITE_FIELDS - 1)
+								if (task->fields_size >= MAX_SQLITE_FIELDS)
 									break;
 
 								task->rows_size = 0;
 
 								for (int i = 0; i < sqlite3_column_count(task->statement); i++)
 								{
-									if (task->rows_size > MAX_SQLITE_ROWS - 1)
+									if (task->rows_size >= MAX_SQLITE_ROWS)
 										break;
 
 									const unsigned char *text = sqlite3_column_text(task->statement, i);
@@ -295,7 +261,7 @@ void gsc_async_sqlite_create_query()
 
 	while (current != NULL && current->next != NULL)
 	{
-		if (task_count > MAX_SQLITE_TASKS - 1)
+		if (task_count >= MAX_SQLITE_TASKS)
 		{
 			stackError("gsc_async_sqlite_create_query() exceeded async task limit");
 			stackPushUndefined();
@@ -399,7 +365,7 @@ void gsc_async_sqlite_create_query_nosave()
 
 	while (current != NULL && current->next != NULL)
 	{
-		if (task_count > MAX_SQLITE_TASKS - 1)
+		if (task_count >= MAX_SQLITE_TASKS)
 		{
 			stackError("gsc_async_sqlite_create_query_nosave() exceeded async task limit");
 			stackPushUndefined();
@@ -503,7 +469,7 @@ void gsc_async_sqlite_create_entity_query(scr_entref_t entid)
 
 	while (current != NULL && current->next != NULL)
 	{
-		if (task_count > MAX_SQLITE_TASKS - 1)
+		if (task_count >= MAX_SQLITE_TASKS)
 		{
 			stackError("gsc_async_sqlite_create_entity_query() exceeded async task limit");
 			stackPushUndefined();
@@ -607,7 +573,7 @@ void gsc_async_sqlite_create_entity_query_nosave(scr_entref_t entid)
 
 	while (current != NULL && current->next != NULL)
 	{
-		if (task_count > MAX_SQLITE_TASKS - 1)
+		if (task_count >= MAX_SQLITE_TASKS)
 		{
 			stackError("gsc_async_sqlite_create_entity_query_nosave() exceeded async task limit");
 			stackPushUndefined();
@@ -843,6 +809,16 @@ void gsc_sqlite_open()
 		return;
 	}
 
+	rc = sqlite3_busy_timeout(db, SQLITE_TIMEOUT);
+
+	if (rc != SQLITE_OK)
+	{
+		stackError("gsc_sqlite_open() cannot set database busy timeout: %s", sqlite3_errmsg(db));
+		sqlite3_close(db);
+		stackPushUndefined();
+		return;
+	}
+
 	sqlite_db_store *current = first_sqlite_db_store;
 
 	while (current != NULL && current->next != NULL)
@@ -876,51 +852,23 @@ void gsc_sqlite_query()
 	}
 
 	sqlite3_stmt *statement;
-	int timeout;
 	int result;
 
-	timeout = Sys_MilliSeconds();
 	result = sqlite3_prepare_v2((sqlite3 *)db, query, COD2_MAX_STRINGLENGTH, &statement, 0);
 
-	while (result != SQLITE_OK)
+	if (result != SQLITE_OK)
 	{
-		if (result == SQLITE_BUSY)
-		{
-			if ((Sys_MilliSeconds() - timeout) > SQLITE_TIMEOUT)
-			{
-				stackError("gsc_sqlite_query() timeout to fetch query data: %s", sqlite3_errmsg((sqlite3 *)db));
-				stackPushUndefined();
-				return;
-			}
-		}
-		else
-		{
-			stackError("gsc_sqlite_query() failed to fetch query data: %s", sqlite3_errmsg((sqlite3 *)db));
-			stackPushUndefined();
-			return;
-		}
-
-		result = sqlite3_prepare_v2((sqlite3 *)db, query, COD2_MAX_STRINGLENGTH, &statement, 0);
+		stackError("gsc_sqlite_query() failed to fetch query data: %s", sqlite3_errmsg((sqlite3 *)db));
+		stackPushUndefined();
 	}
 
 	stackPushArray();
 
-	timeout = Sys_MilliSeconds();
 	result = sqlite3_step(statement);
 
 	while (result != SQLITE_DONE)
 	{
-		if (result == SQLITE_BUSY)
-		{
-			if ((Sys_MilliSeconds() - timeout) > SQLITE_TIMEOUT)
-			{
-				stackError("gsc_sqlite_query() timeout to execute query: %s", sqlite3_errmsg((sqlite3 *)db));
-				stackPushUndefined();
-				sqlite3_finalize(statement);
-				return;
-			}
-		}
-		else if (result == SQLITE_ROW)
+		if (result == SQLITE_ROW)
 		{
 			stackPushArray();
 
