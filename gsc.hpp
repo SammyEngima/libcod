@@ -40,16 +40,16 @@
 #include "gsc_exec.hpp"
 #endif
 
+#if COMPILE_JUMP == 1
+#include "jump.hpp"
+#endif
+
 #if COMPILE_MEMORY == 1
 #include "gsc_memory.hpp"
 #endif
 
-#if COMPILE_MYSQL_DEFAULT == 1
+#if COMPILE_MYSQL == 1
 #include "gsc_mysql.hpp"
-#endif
-
-#if COMPILE_MYSQL_VORON == 1
-#include "gsc_mysql_voron.hpp"
 #endif
 
 #if COMPILE_PLAYER == 1

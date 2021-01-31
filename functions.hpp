@@ -219,6 +219,15 @@ static const Cvar_RegisterBool_t Cvar_RegisterBool = (Cvar_RegisterBool_t)0x080B
 static const Cvar_RegisterBool_t Cvar_RegisterBool = (Cvar_RegisterBool_t)0x080B3FD2;
 #endif
 
+typedef cvar_t* (*Cvar_RegisterFloat_t)(const char* var_name, float var_value, float var_min, float var_max, unsigned short flags);
+#if COD_VERSION == COD2_1_0
+static const Cvar_RegisterFloat_t Cvar_RegisterFloat = (Cvar_RegisterFloat_t)0x080B1C2C;
+#elif COD_VERSION == COD2_1_2
+static const Cvar_RegisterFloat_t Cvar_RegisterFloat = (Cvar_RegisterFloat_t)0x080B3F48;
+#elif COD_VERSION == COD2_1_3
+static const Cvar_RegisterFloat_t Cvar_RegisterFloat = (Cvar_RegisterFloat_t)0x080B408C;
+#endif
+
 typedef cvar_t* (*Cvar_RegisterString_t)(const char *var_name, const char *var_value, unsigned short flags);
 #if COD_VERSION == COD2_1_0
 static const Cvar_RegisterString_t Cvar_RegisterString = (Cvar_RegisterString_t)0x080B1DD2;
@@ -937,6 +946,51 @@ static const BG_EvaluateTrajectory_t BG_EvaluateTrajectory = (BG_EvaluateTraject
 static const BG_EvaluateTrajectory_t BG_EvaluateTrajectory = (BG_EvaluateTrajectory_t)0x080DF490;
 #elif COD_VERSION == COD2_1_3
 static const BG_EvaluateTrajectory_t BG_EvaluateTrajectory = (BG_EvaluateTrajectory_t)0x080DF5D4;
+#endif
+
+typedef void (*BG_AddPredictableEventToPlayerstate_t)(int newEvent, unsigned int eventParm, playerState_s *ps);
+#if COD_VERSION == COD2_1_0
+static const BG_AddPredictableEventToPlayerstate_t BG_AddPredictableEventToPlayerstate = (BG_AddPredictableEventToPlayerstate_t)0x080DD554;
+#elif COD_VERSION == COD2_1_2
+static const BG_AddPredictableEventToPlayerstate_t BG_AddPredictableEventToPlayerstate = (BG_AddPredictableEventToPlayerstate_t)0x080DFB34;
+#elif COD_VERSION == COD2_1_3
+static const BG_AddPredictableEventToPlayerstate_t BG_AddPredictableEventToPlayerstate = (BG_AddPredictableEventToPlayerstate_t)0x080DFC78;
+#endif
+
+typedef int (*BG_AnimScriptEvent_t)(struct playerState_s* ps, enum scriptAnimEventTypes_t event, int isContinue, int force);
+#if COD_VERSION == COD2_1_0
+static const BG_AnimScriptEvent_t BG_AnimScriptEvent = (BG_AnimScriptEvent_t)0x080D6FCA;
+#elif COD_VERSION == COD2_1_2
+static const BG_AnimScriptEvent_t BG_AnimScriptEvent = (BG_AnimScriptEvent_t)0x080D95AA;
+#elif COD_VERSION == COD2_1_3
+static const BG_AnimScriptEvent_t BG_AnimScriptEvent = (BG_AnimScriptEvent_t)0x080D96EE;
+#endif
+
+typedef unsigned int (*PM_GroundSurfaceType_t)(pml_t *pml);
+#if COD_VERSION == COD2_1_0
+static const PM_GroundSurfaceType_t PM_GroundSurfaceType = (PM_GroundSurfaceType_t)0x080DFAFC;
+#elif COD_VERSION == COD2_1_2
+static const PM_GroundSurfaceType_t PM_GroundSurfaceType = (PM_GroundSurfaceType_t)0x080E20DC;
+#elif COD_VERSION == COD2_1_3
+static const PM_GroundSurfaceType_t PM_GroundSurfaceType = (PM_GroundSurfaceType_t)0x080E2220;
+#endif
+
+typedef vec_t (*Vec3Normalize_t)(vec3_t v);
+#if COD_VERSION == COD2_1_0
+static const Vec3Normalize_t Vec3Normalize = (Vec3Normalize_t)0x080A20C0;
+#elif COD_VERSION == COD2_1_2
+static const Vec3Normalize_t Vec3Normalize = (Vec3Normalize_t)0x080A42E0;
+#elif COD_VERSION == COD2_1_3
+static const Vec3Normalize_t Vec3Normalize = (Vec3Normalize_t)0x080A4424;
+#endif
+
+typedef StanceState (*PM_GetEffectiveStance_t)(struct playerState_s *ps);
+#if COD_VERSION == COD2_1_0
+static const PM_GetEffectiveStance_t PM_GetEffectiveStance = (PM_GetEffectiveStance_t)0x080DEE0E;
+#elif COD_VERSION == COD2_1_2
+static const PM_GetEffectiveStance_t PM_GetEffectiveStance = (PM_GetEffectiveStance_t)0x080E13EE;
+#elif COD_VERSION == COD2_1_3
+static const PM_GetEffectiveStance_t PM_GetEffectiveStance = (PM_GetEffectiveStance_t)0x080E1532;
 #endif
 
 #endif

@@ -598,6 +598,38 @@ typedef enum
 	EV_OBITUARY
 } entity_event_t;
 
+enum scriptAnimEventTypes_t
+{
+	ANIM_ET_PAIN = 0x0,
+	ANIM_ET_DEATH = 0x1,
+	ANIM_ET_FIREWEAPON = 0x2,
+	ANIM_ET_JUMP = 0x3,
+	ANIM_ET_JUMPBK = 0x4,
+	ANIM_ET_LAND = 0x5,
+	ANIM_ET_DROPWEAPON = 0x6,
+	ANIM_ET_RAISEWEAPON = 0x7,
+	ANIM_ET_CLIMB_MOUNT = 0x8,
+	ANIM_ET_CLIMB_DISMOUNT = 0x9,
+	ANIM_ET_RELOAD = 0xA,
+	ANIM_ET_CROUCH_TO_PRONE = 0xB,
+	ANIM_ET_PRONE_TO_CROUCH = 0xC,
+	ANIM_ET_STAND_TO_CROUCH = 0xD,
+	ANIM_ET_CROUCH_TO_STAND = 0xE,
+	ANIM_ET_STAND_TO_PRONE = 0xF,
+	ANIM_ET_PRONE_TO_STAND = 0x10,
+	ANIM_ET_MELEEATTACK = 0x11,
+	ANIM_ET_SHELLSHOCK = 0x12,
+	NUM_ANIM_EVENTTYPES = 0x13,
+};
+
+enum StanceState
+{
+	CL_STANCE_STAND = 0x0,
+	CL_STANCE_CROUCH = 0x1,
+	CL_STANCE_PRONE = 0x2,
+	CL_STANCE_DIVE_TO_PRONE = 0x3,
+};
+
 typedef enum
 {
 	TRACE_HITTYPE_NONE = 0x0,
@@ -614,11 +646,7 @@ typedef struct trace_s
 	int surfaceFlags;
 	int contents;
 	const char *material;
-	TraceHitType hitType;
-	u_int16_t hitId;
-	u_int16_t modelIndex;
-	u_int16_t partName;
-	u_int16_t partGroup;
+	int entityNum;
 	byte allsolid;
 	byte startsolid;
 	byte walkable;
@@ -1908,6 +1936,39 @@ typedef struct DObj_s
 	XModel_t *models; // 28
 } DObj_t;
 
+struct pmove_t
+{
+	struct playerState_s *ps;
+	usercmd_t cmd;
+	usercmd_t oldcmd;
+	int tracemask;
+	int numtouch;
+	int touchents[32];
+	vec3_t mins;
+	vec3_t maxs;
+	float xyspeed;
+	int proneChange;
+	byte mantleStarted; // 229
+	vec3_t mantleEndPos;
+	int mantleDuration;
+};
+
+struct pml_t
+{
+	vec3_t forward;
+	vec3_t right;
+	vec3_t up;
+	float frametime;
+	int msec;
+	int walking;
+	int groundPlane;
+	int almostGroundPlane;
+	trace_t groundTrace;
+	float impactSpeed;
+	vec3_t previous_origin;
+	vec3_t previous_velocity;
+};
+
 typedef struct
 {
 	short emptystring;
@@ -2040,6 +2101,7 @@ typedef struct
 
 #define PMF_MANTLE 4
 #define PMF_LADDER 32
+#define PMF_JUMPING 0x80000
 
 #define CONTENTS_SOLID          1
 #define CONTENTS_NONCOLLIDING   4

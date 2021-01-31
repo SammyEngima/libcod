@@ -115,7 +115,7 @@ scr_function_t scriptFunctions[] =
 	{"binarybuffer_read", gsc_binarybuffer_read, 0},
 #endif
 
-#if COMPILE_MYSQL_DEFAULT == 1
+#if COMPILE_MYSQL == 1
 	{"mysql_init", gsc_mysql_init, 0},
 	{"mysql_real_connect", gsc_mysql_real_connect, 0},
 	{"mysql_close", gsc_mysql_close, 0},
@@ -137,39 +137,6 @@ scr_function_t scriptFunctions[] =
 	{"mysql_async_getresult_and_free", gsc_mysql_async_getresult_and_free, 0},
 	{"mysql_async_initializer", gsc_mysql_async_initializer, 0},
 	{"mysql_reuse_connection", gsc_mysql_reuse_connection, 0},
-#endif
-
-#if COMPILE_MYSQL_VORON == 1
-	{"mysql_initialize", gsc_mysql_initialize, 0},
-	{"mysql_close", gsc_mysql_close, 0},
-	{"mysql_query", gsc_mysql_query, 0},
-	{"mysql_errno", gsc_mysql_errno, 0},
-	{"mysql_error", gsc_mysql_error, 0},
-	{"mysql_affected_rows", gsc_mysql_affected_rows, 0},
-	{"mysql_store_result", gsc_mysql_store_result, 0},
-	{"mysql_num_rows", gsc_mysql_num_rows, 0},
-	{"mysql_num_fields", gsc_mysql_num_fields, 0},
-	{"mysql_field_seek", gsc_mysql_field_seek, 0},
-	{"mysql_fetch_field", gsc_mysql_fetch_field, 0},
-	{"mysql_fetch_row", gsc_mysql_fetch_row, 0},
-	{"mysql_free_result", gsc_mysql_free_result, 0},
-	{"mysql_real_escape_string", gsc_mysql_real_escape_string, 0},
-
-	{"async_mysql_initialize", gsc_async_mysql_initialize, 0},
-	{"async_mysql_close", gsc_async_mysql_close, 0},
-	{"async_mysql_create_query", gsc_async_mysql_create_query, 0},
-	{"async_mysql_create_query_nosave", gsc_async_mysql_create_query_nosave, 0},
-	{"async_mysql_checkdone", gsc_async_mysql_checkdone, 0},
-	{"async_mysql_errno", gsc_async_mysql_errno, 0},
-	{"async_mysql_error", gsc_async_mysql_error, 0},
-	{"async_mysql_affected_rows", gsc_async_mysql_affected_rows, 0},
-	{"async_mysql_num_rows", gsc_async_mysql_num_rows, 0},
-	{"async_mysql_num_fields", gsc_async_mysql_num_fields, 0},
-	{"async_mysql_field_seek", gsc_async_mysql_field_seek, 0},
-	{"async_mysql_fetch_field", gsc_async_mysql_fetch_field, 0},
-	{"async_mysql_fetch_row", gsc_async_mysql_fetch_row, 0},
-	{"async_mysql_free_task", gsc_async_mysql_free_task, 0},
-	{"async_mysql_real_escape_string", gsc_async_mysql_real_escape_string, 0},
 #endif
 
 #if COMPILE_PLAYER == 1
@@ -301,11 +268,6 @@ scr_method_t scriptMethods[] =
 #if COMPILE_ENTITY == 1
 	{"setalive", gsc_entity_setalive, 0},
 	{"setbounds", gsc_entity_setbounds, 0},
-#endif
-
-#if COMPILE_MYSQL_VORON == 1
-	{"async_mysql_create_entity_query", gsc_async_mysql_create_entity_query, 0},
-	{"async_mysql_create_entity_query_nosave", gsc_async_mysql_create_entity_query_nosave, 0},
 #endif
 
 #if COMPILE_PLAYER == 1

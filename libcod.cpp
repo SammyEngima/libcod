@@ -1337,12 +1337,11 @@ public:
 		cracking_hook_call(0x0807059F, (int)Scr_GetCustomFunction);
 		cracking_hook_call(0x080707C3, (int)Scr_GetCustomMethod);
 		cracking_hook_call(0x0810E507, (int)Com_DPrintf);
+		cracking_hook_call(0x08081CFE, (int)hook_scriptError);
 
 #if COMPILE_PLAYER == 1
 		cracking_hook_call(0x0808E18F, (int)hook_gamestate_info);
 #endif
-
-		cracking_hook_call(0x08081CFE, (int)hook_scriptError);
 
 		hook_gametype_scripts = new cHook(0x0810DDEE, (int)hook_codscript_gametype_scripts);
 		hook_gametype_scripts->hook();
@@ -1374,6 +1373,18 @@ public:
 		cracking_hook_function(0x080945AC, (int)custom_SV_CheckTimeouts);
 		cracking_hook_function(0x08094F02, (int)custom_SV_MasterHeartbeat);
 
+#if COMPILE_JUMP == 1
+		cracking_hook_function(0x080D9FF4, (int)Jump_ClearState);
+		cracking_hook_function(0x080DA1A6, (int)Jump_ReduceFriction);
+		cracking_hook_function(0x080DA238, (int)Jump_ClampVelocity);
+		cracking_hook_function(0x080DA0A4, (int)Jump_IsPlayerAboveMax);
+		cracking_hook_function(0x080DA016, (int)Jump_GetStepHeight);
+		cracking_hook_function(0x080DA584, (int)Jump_Check);
+		cracking_hook_function(0x080DA0F4, (int)Jump_ApplySlowdown);
+		cracking_hook_function(0x080DA0CA, (int)Jump_ActivateSlowdown);
+		cracking_hook_function(0x080D9EE8, (int)Jump_RegisterDvars);
+#endif
+
 #if COMPILE_BOTS == 1
 		cracking_hook_function(0x0809479A, (int)custom_SV_BotUserMove);
 #endif
@@ -1398,12 +1409,11 @@ public:
 		cracking_hook_call(0x08070B1B, (int)Scr_GetCustomFunction);
 		cracking_hook_call(0x08070D3F, (int)Scr_GetCustomMethod);
 		cracking_hook_call(0x08110832, (int)Com_DPrintf);
+		cracking_hook_call(0x0808227A, (int)hook_scriptError);
 
 #if COMPILE_PLAYER == 1
 		cracking_hook_call(0x0808F533, (int)hook_gamestate_info);
 #endif
-
-		cracking_hook_call(0x0808227A, (int)hook_scriptError);
 
 		hook_gametype_scripts = new cHook(0x0811012A, (int)hook_codscript_gametype_scripts);
 		hook_gametype_scripts->hook();
@@ -1435,6 +1445,18 @@ public:
 		cracking_hook_function(0x080964C4, (int)custom_SV_CheckTimeouts);
 		cracking_hook_function(0x08096E1A, (int)custom_SV_MasterHeartbeat);
 
+#if COMPILE_JUMP == 1
+		cracking_hook_function(0x080DC5D4, (int)Jump_ClearState);
+		cracking_hook_function(0x080DC786, (int)Jump_ReduceFriction);
+		cracking_hook_function(0x080DC818, (int)Jump_ClampVelocity);
+		cracking_hook_function(0x080DC684, (int)Jump_IsPlayerAboveMax);
+		cracking_hook_function(0x080DC5F6, (int)Jump_GetStepHeight);
+		cracking_hook_function(0x080DCB64, (int)Jump_Check);
+		cracking_hook_function(0x080DC6D4, (int)Jump_ApplySlowdown);
+		cracking_hook_function(0x080DC6AA, (int)Jump_ActivateSlowdown);
+		cracking_hook_function(0x080DC4C8, (int)Jump_RegisterDvars);
+#endif
+
 #if COMPILE_BOTS == 1
 		cracking_hook_function(0x080966B2, (int)custom_SV_BotUserMove);
 #endif
@@ -1459,12 +1481,11 @@ public:
 		cracking_hook_call(0x08070BE7, (int)Scr_GetCustomFunction);
 		cracking_hook_call(0x08070E0B, (int)Scr_GetCustomMethod);
 		cracking_hook_call(0x0811098E, (int)Com_DPrintf);
+		cracking_hook_call(0x08082346, (int)hook_scriptError);
 
 #if COMPILE_PLAYER == 1
 		cracking_hook_call(0x0808F5C7, (int)hook_gamestate_info);
 #endif
-
-		cracking_hook_call(0x08082346, (int)hook_scriptError);
 
 		hook_gametype_scripts = new cHook(0x08110286, (int)hook_codscript_gametype_scripts);
 		hook_gametype_scripts->hook();
@@ -1495,6 +1516,18 @@ public:
 		cracking_hook_function(0x080963C8, (int)custom_SV_CalcPings);
 		cracking_hook_function(0x0809657E, (int)custom_SV_CheckTimeouts);
 		cracking_hook_function(0x08096ED6, (int)custom_SV_MasterHeartbeat);
+
+#if COMPILE_JUMP == 1
+		cracking_hook_function(0x080DC718, (int)Jump_ClearState);
+		cracking_hook_function(0x080DC8CA, (int)Jump_ReduceFriction);
+		cracking_hook_function(0x080DC95C, (int)Jump_ClampVelocity);
+		cracking_hook_function(0x080DC7C8, (int)Jump_IsPlayerAboveMax);
+		cracking_hook_function(0x080DC73A, (int)Jump_GetStepHeight);
+		cracking_hook_function(0x080DCCA8, (int)Jump_Check);
+		cracking_hook_function(0x080DC818, (int)Jump_ApplySlowdown);
+		cracking_hook_function(0x080DC7EE, (int)Jump_ActivateSlowdown);
+		cracking_hook_function(0x080DC60C, (int)Jump_RegisterDvars);
+#endif
 
 #if COMPILE_BOTS == 1
 		cracking_hook_function(0x0809676C, (int)custom_SV_BotUserMove);

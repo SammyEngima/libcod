@@ -1,6 +1,6 @@
 #include "gsc_mysql.hpp"
 
-#if COMPILE_MYSQL_DEFAULT == 1
+#if COMPILE_MYSQL == 1
 
 #include <mysql/mysql.h>
 #include <pthread.h>

@@ -31,5 +31,7 @@
 !gsc_utils.hpp
 !gsc_weapons.cpp
 !gsc_weapons.hpp
+!jump.cpp
+!jump.hpp
 !libcod.cpp
 !README.md
