@@ -318,11 +318,11 @@ void Jump_ActivateSlowdown(playerState_s *ps)
 
 void Jump_RegisterDvars()
 {
-	jump_height = Cvar_RegisterFloat("jump_height", 39.0, 0.0, 128.0, 0x180u);
-	jump_stepSize = Cvar_RegisterFloat("jump_stepSize", 18.0, 0.0, 64.0, 0x180u);
-	jump_slowdownEnable = Cvar_RegisterBool("jump_slowdownEnable", qtrue, 0x180u);
-	jump_ladderPushVel = Cvar_RegisterFloat("jump_ladderPushVel", 128.0, 0.0, 1024.0, 0x180u);
-	jump_spreadAdd = Cvar_RegisterFloat("jump_spreadAdd", 64.0, 0.0, 512.0, 0x180u);
+	jump_height = Cvar_RegisterFloat("jump_height", 39.0, 0.0, 128.0, CVAR_CHEAT | CVAR_SYSTEMINFO);
+	jump_stepSize = Cvar_RegisterFloat("jump_stepSize", 18.0, 0.0, 64.0, CVAR_CHEAT | CVAR_SYSTEMINFO);
+	jump_slowdownEnable = Cvar_RegisterBool("jump_slowdownEnable", qtrue, CVAR_CHEAT | CVAR_SYSTEMINFO);
+	jump_ladderPushVel = Cvar_RegisterFloat("jump_ladderPushVel", 128.0, 0.0, 1024.0, CVAR_CHEAT | CVAR_SYSTEMINFO);
+	jump_spreadAdd = Cvar_RegisterFloat("jump_spreadAdd", 64.0, 0.0, 512.0, CVAR_CHEAT | CVAR_SYSTEMINFO);
 }
 
 #endif

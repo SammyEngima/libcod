@@ -29,9 +29,9 @@ if [ "$1" != "clean" ]; then
 		mysql_found=1
 		mysql_link="-lmysqlclient -L/usr/lib/mysql"
 	elif [ -d "./vendors/lib" ]; then
-	    mysql_link="-lmysqlclient -L./vendors/lib"
 		export LD_LIBRARY_PATH_32="./vendors/lib"
 		mysql_found=1
+		mysql_link="-lmysqlclient -L./vendors/lib"
 	else
 		sed -i "/#define COMPILE_MYSQL 1/c\\#define COMPILE_MYSQL 0" config.hpp
 	fi
@@ -109,11 +109,6 @@ if [ "$(< config.hpp grep '#define COMPILE_EXEC' | grep -o '[0-9]')" == "1" ]; t
 	pthread_link="-lpthread"
 fi
 
-if [ "$(< config.hpp grep '#define COMPILE_JUMP' | grep -o '[0-9]')" == "1" ]; then
-	echo "##### COMPILE $1 JUMP.CPP #####"
-	$cc $options $constants -c jump.cpp -o objects_"$1"/jump.opp
-fi
-
 if [ "$(< config.hpp grep '#define COMPILE_MEMORY' | grep -o '[0-9]')" == "1" ]; then
 	echo "##### COMPILE $1 GSC_MEMORY.CPP #####"
 	$cc $options $constants -c gsc_memory.cpp -o objects_"$1"/gsc_memory.opp
@@ -154,6 +149,14 @@ if [ "$(< config.hpp grep '#define COMPILE_WEAPONS' | grep -o '[0-9]')" == "1" ]
 	$cc $options $constants -c gsc_weapons.cpp -o objects_"$1"/gsc_weapons.opp
 fi
 
+if [ "$(< config.hpp grep '#define COMPILE_JUMP' | grep -o '[0-9]')" == "1" ]; then
+	echo "##### COMPILE $1 JUMP.CPP #####"
+	$cc $options $constants -c jump.cpp -o objects_"$1"/jump.opp
+fi
+
+echo "##### COMPILE $1 LIBCOD.CPP #####"
+$cc $options $constants -c libcod.cpp -o objects_"$1"/libcod.opp
+
 if [ -d extra ]; then
 	echo "##### COMPILE $1 EXTRAS #####"
 	(
@@ -165,9 +168,6 @@ if [ -d extra ]; then
 	done
 	)
 fi
-
-echo "##### COMPILE $1 LIBCOD.CPP #####"
-$cc $options $constants -c libcod.cpp -o objects_"$1"/libcod.opp
 
 echo "##### LINKING lib$1.so #####"
 objects="$(ls objects_$1/*.opp)"
