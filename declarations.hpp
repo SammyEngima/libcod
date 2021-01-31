@@ -2063,6 +2063,24 @@ typedef struct
 	short pelvis;
 } stringIndex_t;
 
+struct bgs_s
+{
+	byte animScriptData[0xB3BC8u];
+	int multiplayer;
+	int root;
+	int torso;
+	int legs;
+	int turning;
+	int turnAnimEndTime;
+	int frametime;
+	float angle;
+	struct XModel *(*GetXModel)(const char *);
+	void (*CreateDObj)(struct DObjModel_s *, u_int16_t, struct XAnimTree_s *, int, int, struct clientInfo_t *);
+	u_int16_t (*AttachWeapon)(struct DObjModel_s *, u_int16_t, struct clientInfo_t *);
+	struct DObj_s *(*GetDObj)(int, int);
+	void *(*AllocXAnim)(int);
+};
+
 #define	SVF_NOCLIENT  0x00000001
 #define	SVF_BROADCAST 0x00000008
 
@@ -2260,6 +2278,14 @@ static const int const_offset = 0x087B61A0;
 static const int const_offset = 0x08853220;
 #endif
 
+#if COD_VERSION == COD2_1_0
+static const int bgs_offset = 0x0855A4E0;
+#elif COD_VERSION == COD2_1_2
+static const int bgs_offset = 0x0856E3A0;
+#elif COD_VERSION == COD2_1_3
+static const int bgs_offset = 0x0860B420;
+#endif
+
 #define scrVarPub (*((scrVarPub_t*)( varpub_offset )))
 #define scrVmPub (*((scrVmPub_t*)( vmpub_offset )))
 #define scrVarGlob (((VariableValueInternal*)( varglob_offset )))
@@ -2268,6 +2294,7 @@ static const int const_offset = 0x08853220;
 #define svs (*((serverStatic_t*)( svs_offset )))
 #define level (*((level_locals_t*)( level_offset )))
 #define scr_const (*((stringIndex_t*)( const_offset )))
+#define level_bgs (*((bgs_s*)( bgs_offset )))
 
 // Check for critical structure sizes and fail if not match
 #if __GNUC__ >= 6
