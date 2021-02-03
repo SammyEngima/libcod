@@ -1044,7 +1044,7 @@ typedef struct
 	int enterTime;
 	int voteCount;
 	int teamVoteCount;
-	float moveSpeedScaleMultiplier; // ?
+	float unknown;
 	int viewmodelIndex;
 	qboolean noSpectate;
 	int teamInfo;
@@ -1083,7 +1083,7 @@ struct gclient_s
 	qboolean inactivityWarning;
 	int playerTalkTime;
 	int rewardTime; // N/A
-	float antilagShootTime; // 10256
+	float currentAimSpreadScale; // 10256
 	int unknown_space[2];
 	int unknownClientEndFrameVar;
 	int unknown_space2[3];
