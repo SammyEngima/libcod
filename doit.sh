@@ -88,36 +88,36 @@ mkdir -p bin
 mkdir -p objects_"$1"
 
 echo "##### COMPILE $1 CRACKING.CPP #####"
-$cc "$options" "$constants" -c cracking.cpp -o objects_"$1"/cracking.opp
+$cc $options $constants -c cracking.cpp -o objects_"$1"/cracking.opp
 
 echo "##### COMPILE $1 GSC.CPP #####"
-$cc "$options" "$constants" -c gsc.cpp -o objects_"$1"/gsc.opp
+$cc $options $constants -c gsc.cpp -o objects_"$1"/gsc.opp
 
 if [ "$(< config.hpp grep '#define COMPILE_BOTS' | grep -o '[0-9]')" == "1" ]; then
 	echo "##### COMPILE $1 GSC_BOTS.CPP #####"
-	$cc "$options" "$constants" -c gsc_bots.cpp -o objects_"$1"/gsc_bots.opp
+	$cc $options $constants -c gsc_bots.cpp -o objects_"$1"/gsc_bots.opp
 fi
 
 if [ "$(< config.hpp grep '#define COMPILE_ENTITY' | grep -o '[0-9]')" == "1" ]; then
 	echo "##### COMPILE $1 GSC_ENTITY.CPP #####"
-	$cc "$options" "$constants" -c gsc_entity.cpp -o objects_"$1"/gsc_entity.opp
+	$cc $options $constants -c gsc_entity.cpp -o objects_"$1"/gsc_entity.opp
 fi
 
 if [ "$(< config.hpp grep '#define COMPILE_EXEC' | grep -o '[0-9]')" == "1" ]; then
 	echo "##### COMPILE $1 GSC_EXEC.CPP #####"
-	$cc "$options" "$constants" -c gsc_exec.cpp -o objects_"$1"/gsc_exec.opp
+	$cc $options $constants -c gsc_exec.cpp -o objects_"$1"/gsc_exec.opp
 	pthread_link="-lpthread"
 fi
 
 if [ "$(< config.hpp grep '#define COMPILE_MEMORY' | grep -o '[0-9]')" == "1" ]; then
 	echo "##### COMPILE $1 GSC_MEMORY.CPP #####"
-	$cc "$options" "$constants" -c gsc_memory.cpp -o objects_"$1"/gsc_memory.opp
+	$cc $options $constants -c gsc_memory.cpp -o objects_"$1"/gsc_memory.opp
 fi
 
 if [ $mysql_found -eq 1 ]; then
 	if [ "$(< config.hpp grep '#define COMPILE_MYSQL' | grep -o '[0-9]')" == "1" ]; then
 		echo "##### COMPILE $1 GSC_MYSQL.CPP #####"
-		$cc "$options" "$constants" -c gsc_mysql.cpp -o objects_"$1"/gsc_mysql.opp
+		$cc $options $constants -c gsc_mysql.cpp -o objects_"$1"/gsc_mysql.opp
 		pthread_link="-lpthread"
 	fi
 else
@@ -126,13 +126,13 @@ fi
 
 if [ "$(< config.hpp grep '#define COMPILE_PLAYER' | grep -o '[0-9]')" == "1" ]; then
 	echo "##### COMPILE $1 GSC_PLAYER.CPP #####"
-	$cc "$options" "$constants" -c gsc_player.cpp -o objects_"$1"/gsc_player.opp
+	$cc $options $constants -c gsc_player.cpp -o objects_"$1"/gsc_player.opp
 fi
 
 if [ $sqlite_found -eq 1 ]; then
 	if [ "$(< config.hpp grep '#define COMPILE_SQLITE' | grep -o '[0-9]')" == "1" ]; then
 		echo "##### COMPILE $1 GSC_SQLITE.CPP #####"
-		$cc "$options" "$constants" -c gsc_sqlite.cpp -o objects_"$1"/gsc_sqlite.opp
+		$cc $options $constants -c gsc_sqlite.cpp -o objects_"$1"/gsc_sqlite.opp
 		pthread_link="-lpthread"
 	fi
 else
@@ -141,21 +141,21 @@ fi
 
 if [ "$(< config.hpp grep '#define COMPILE_UTILS' | grep -o '[0-9]')" == "1" ]; then
 	echo "##### COMPILE $1 GSC_UTILS.CPP #####"
-	$cc "$options" "$constants" -c gsc_utils.cpp -o objects_"$1"/gsc_utils.opp
+	$cc $options $constants -c gsc_utils.cpp -o objects_"$1"/gsc_utils.opp
 fi
 
 if [ "$(< config.hpp grep '#define COMPILE_WEAPONS' | grep -o '[0-9]')" == "1" ]; then
 	echo "##### COMPILE $1 GSC_WEAPONS.CPP #####"
-	$cc "$options" "$constants" -c gsc_weapons.cpp -o objects_"$1"/gsc_weapons.opp
+	$cc $options $constants -c gsc_weapons.cpp -o objects_"$1"/gsc_weapons.opp
 fi
 
 if [ "$(< config.hpp grep '#define COMPILE_JUMP' | grep -o '[0-9]')" == "1" ]; then
 	echo "##### COMPILE $1 JUMP.CPP #####"
-	$cc "$options" "$constants" -c jump.cpp -o objects_"$1"/jump.opp
+	$cc $options $constants -c jump.cpp -o objects_"$1"/jump.opp
 fi
 
 echo "##### COMPILE $1 LIBCOD.CPP #####"
-$cc "$options" "$constants" -c libcod.cpp -o objects_"$1"/libcod.opp
+$cc $options $constants -c libcod.cpp -o objects_"$1"/libcod.opp
 
 if [ -d extra ]; then
 	echo "##### COMPILE $1 EXTRAS #####"
@@ -164,13 +164,13 @@ if [ -d extra ]; then
 	for F in *.cpp;
 	do
 		echo "###### COMPILE $1 EXTRA: $F #####"
-		$cc "$options" "$constants" -c "$F" -o ../objects_"$1"/"${F%.cpp}".opp;
+		$cc $options $constants -c "$F" -o ../objects_"$1"/"${F%.cpp}".opp;
 	done
 	)
 fi
 
 echo "##### LINKING lib$1.so #####"
-objects="$(ls objects_"$1"/*.opp)"
+objects="$(ls objects_$1/*.opp)"
 $cc -m32 -shared -L/lib32 -o bin/lib"$1".so -ldl $objects $pthread_link $mysql_link $sqlite_link
 rm objects_"$1" -r
 
