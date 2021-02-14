@@ -5,6 +5,7 @@
 #define COMPILE_BOTS 1
 #define COMPILE_ENTITY 1
 #define COMPILE_EXEC 1
+#define COMPILE_LEVEL 1
 #define COMPILE_MEMORY 1
 #define COMPILE_MYSQL 1
 #define COMPILE_PLAYER 1

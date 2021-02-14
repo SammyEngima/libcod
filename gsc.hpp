@@ -44,6 +44,10 @@
 #include "jump.hpp"
 #endif
 
+#if COMPILE_LEVEL == 1
+#include "gsc_level.hpp"
+#endif
+
 #if COMPILE_MEMORY == 1
 #include "gsc_memory.hpp"
 #endif

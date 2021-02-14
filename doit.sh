@@ -109,6 +109,12 @@ if [ "$(< config.hpp grep '#define COMPILE_EXEC' | grep -o '[0-9]')" == "1" ]; t
 	pthread_link="-lpthread"
 fi
 
+if [ "$(< config.hpp grep '#define COMPILE_LEVEL' | grep -o '[0-9]')" == "1" ]; then
+        echo "##### COMPILE $1 GSC_LEVEL.CPP #####"
+        $cc $options $constants -c gsc_level.cpp -o objects_"$1"/gsc_level.opp
+        pthread_link="-lpthread"
+fi
+
 if [ "$(< config.hpp grep '#define COMPILE_MEMORY' | grep -o '[0-9]')" == "1" ]; then
 	echo "##### COMPILE $1 GSC_MEMORY.CPP #####"
 	$cc $options $constants -c gsc_memory.cpp -o objects_"$1"/gsc_memory.opp
